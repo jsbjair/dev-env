@@ -44,6 +44,13 @@ RUN cd /opt \
       && chmod +x ./jq/jq \
       && ln -s /opt/jq/jq /usr/local/bin
 
+# Install ctags
+RUN cd /opt \
+    && wget http://prdownloads.sourceforge.net/ctags/ctags-5.8.tar.gz \
+    && tar -xzf ctags-5.8.tar.gz \
+    && cd ctags-5.8 \
+    && ./configure && make && make install
+
 RUN groupadd -g $GID -o $user
 # Add user with name "${user}"
 RUN useradd -d /home/$user -u $UID -g $GID -m -s /bin/zsh $user \
