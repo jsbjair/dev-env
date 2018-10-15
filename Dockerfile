@@ -51,6 +51,11 @@ RUN cd /opt \
     && cd ctags-5.8 \
     && ./configure && make && make install
 
+# Install composer.phar
+RUN cd /opt \
+    && wget https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer -O - -q | php -- --quiet \
+    && ln -sf /opt/composer.phar /usr/local/bin/composer
+
 RUN groupadd -g $GID -o $user
 # Add user with name "${user}"
 RUN useradd -d /home/$user -u $UID -g $GID -m -s /bin/zsh $user \
