@@ -46,9 +46,9 @@ RUN cd /opt \
 
 # Install ctags
 RUN cd /opt \
-    && wget http://prdownloads.sourceforge.net/ctags/ctags-5.8.tar.gz \
-    && tar -xzf ctags-5.8.tar.gz \
-    && cd ctags-5.8 \
+    && git clone https://github.com/universal-ctags/ctags.git \
+    && cd ctags \
+    && ./autogen.sh \
     && ./configure && make && make install
 
 # Install composer.phar
