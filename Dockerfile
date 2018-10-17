@@ -71,6 +71,7 @@ WORKDIR /home/$user
 # Add configuration files
 ADD ./config/.tmux.conf ./.tmux.conf
 ADD ./config/.zshrc ./.zshrc
+ADD ./bin/man.sh /opt/man.sh
 # Change current user
 RUN chown -R ${user}:${user} /home/$user
 USER $user
