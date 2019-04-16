@@ -17,7 +17,7 @@ RUN apt-get update && apt-get -y upgrade \
     apt-transport-https \
     && locale-gen en_US.UTF-8 \
     && dpkg-reconfigure locales
-
+RUN ls
 #Configure ppa
 RUN add-apt-repository -y ppa:jonathonf/vim \
     && add-apt-repository -y ppa:ondrej/php \
