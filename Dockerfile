@@ -20,13 +20,11 @@ RUN apt-get update && apt-get -y upgrade \
 
 #Configure ppa
 RUN add-apt-repository -y ppa:jonathonf/vim \
-    && add-apt-repository -y ppa:ondrej/php \
-    && add-apt-repository -y ppa:zeal-developers/ppa \
     && apt-get update
 
 # Install Basic Packages
 RUN apt-get install -y wget curl git man unzip \
-    tmux zsh php vim-gtk3 lynx htop openssh-server mosh sudo php-pear
+    tmux zsh vim-gtk3 lynx htop openssh-server mosh sudo
 
 # Install packages needed to compile binaries
 RUN apt-get install -y build-essential autotools-dev automake pkg-config
@@ -50,14 +48,6 @@ RUN cd /opt \
     && cd ctags \
     && ./autogen.sh \
     && ./configure && make && make install
-
-# Install composer.phar
-RUN cd /opt \
-    && wget https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer -O - -q | php -- --quiet \
-    && ln -sf /opt/composer.phar /usr/local/bin/composer
-
-# Install pear
-RUN pear channel-update doc.php.net && pear install doc.php.net/pman
 
 RUN groupadd -g $GID -o $user
 # Add user with name "${user}"
