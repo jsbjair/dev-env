@@ -31,7 +31,7 @@ RUN apt-get install -y build-essential autotools-dev automake pkg-config
 
 # Install peco
 RUN cd /opt \
-      && wget https://github.com/peco/peco/releases/download/v0.5.3/peco_linux_amd64.tar.gz \
+      && wget https://github.com/peco/peco/releases/download/v0.5.7/peco_linux_amd64.tar.gz \
       && tar xvf peco_linux_amd64.tar.gz \
       && ln -s /opt/peco_linux_amd64/peco /usr/local/bin
 
@@ -61,7 +61,6 @@ WORKDIR /home/$user
 # Add configuration files
 ADD ./config/.tmux.conf ./.tmux.conf
 ADD ./config/.zshrc ./.zshrc
-ADD ./bin/man.sh /opt/man.sh
 # Change current user
 RUN chown -R ${user}:${user} /home/$user
 USER $user
