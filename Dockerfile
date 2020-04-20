@@ -1,5 +1,5 @@
 # Specify Ubuntu Saucy as base image
-FROM ubuntu:xenial
+FROM ubuntu:bionic
 LABEL maintainer="jsbjair"
 
 # Arguments
@@ -77,7 +77,7 @@ RUN git clone https://github.com/jsbjair/customvim.git ./.vim \
 # Put peco script
 RUN mkdir -p ./.zsh \
     && git clone https://gist.github.com/ad77e50ae4646ae1f46f45a555585974.git ./.zsh/ \
-    && echo "source ./.zsh/peco-select-history.zsh" >> ./.zshrc
+    && echo "source ~/.zsh/peco-select-history.zsh" >> ./.zshrc
 
 CMD ["tmux"]
 # Expose ssh port and mosh port
