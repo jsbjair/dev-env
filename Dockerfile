@@ -25,7 +25,8 @@ RUN add-apt-repository -y ppa:jonathonf/vim \
 
 # Install Basic Packages
 RUN apt-get install -y wget curl git man unzip \
-    tmux zsh vim-gtk3 lynx htop openssh-server mosh sudo
+    tmux zsh vim-gtk3 lynx htop openssh-server mosh sudo \
+    cscope
 
 # Install packages needed to compile binaries
 RUN apt-get install -y build-essential autotools-dev automake pkg-config
