@@ -2,7 +2,7 @@
 set -e
 
 [[ -z $name ]] && name='devenv'
-project_path=`realpath "$1"`
+project_path=`readlink -f "$1"`
 project=`basename $project_path`
 user=`whoami`
 docker run --user $user \
