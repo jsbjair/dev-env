@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 [[ -z $name ]] && name='devenv'
 project_path=`realpath "$1"`
