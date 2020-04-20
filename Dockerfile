@@ -6,6 +6,7 @@ LABEL maintainer="jsbjair"
 ARG user
 ARG UID=1001
 ARG GID=1001
+ARG DEBIAN_FRONTEND=noninteractive
 # Set Environment Variables & Language Environment
 ENV LC_ALL en_US.UTF-8
 ENV user ${user:-jair}
