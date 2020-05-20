@@ -1,0 +1,2 @@
+# On Windows
+docker run --user jair --privileged --name dev-env --publish-all --mount type=bind,source='C:\Users\Virtual Machine\Documents\chrome_user_data\project',target='/home/jair/project' -v maven-repo:/home/jair/.m2 -v /var/run/docker.sock:/var/run/docker.sock -e X_SERVER_HOST="$Env:X_SERVER_HOST" -it dev-env-windows:latest
