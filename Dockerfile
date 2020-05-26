@@ -51,6 +51,11 @@ RUN cd /opt \
     && ./autogen.sh \
     && ./configure && make && make install
 
+# Install dircolor solarized
+RUN mkdir /opt/dev-env-config \
+    && cd /opt/dev-env-config \
+    && wget -O .dircolors https://raw.github.com/seebi/dircolors-solarized/master/dircolors.256dark
+
 RUN groupadd -g $GID -o $user
 # Add user with name "${user}"
 RUN useradd -d /home/$user -u $UID -g $GID -m -s /bin/zsh $user \
