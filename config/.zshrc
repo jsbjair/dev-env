@@ -90,5 +90,6 @@ export DOCKER_HOME=/opt/docker
 export JAVA_HOME=/opt/java/jdk
 export PATH=$PATH:$USER_LOCAL_BIN:$JAVA_HOME/bin;$DOCKER_HOME
 
+eval `dircolors /opt/dev-env-config/.dircolors`
 
 
