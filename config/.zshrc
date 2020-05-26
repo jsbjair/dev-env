@@ -85,7 +85,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+export USER_LOCAL_BIN=/home/jair/.local/bin
+export DOCKER_HOME=/opt/docker
 export JAVA_HOME=/opt/java/jdk
-export PATH=$PATH:$JAVA_HOME/bin
+export PATH=$PATH:$USER_LOCAL_BIN:$JAVA_HOME/bin;$DOCKER_HOME
+
+
 
