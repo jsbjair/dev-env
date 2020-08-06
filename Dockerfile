@@ -34,8 +34,26 @@ RUN apt-get install -y build-essential autotools-dev automake pkg-config
 # Install peco
 RUN cd /opt \
       && wget https://github.com/peco/peco/releases/download/v0.5.7/peco_linux_amd64.tar.gz \
-      && tar xvf peco_linux_amd64.tar.gz \
+      && tar -xvf peco_linux_amd64.tar.gz \
       && ln -s /opt/peco_linux_amd64/peco /usr/local/bin
+
+# Install docker
+RUN cd /opt \
+      && wget https://download.docker.com/linux/static/stable/x86_64/docker-19.03.8.tgz \
+      && tar -xvf docker-19.03.8.tgz \
+      && ln -s /opt/docker/docker /usr/local/bin
+
+# Install docker-compose
+RUN cd /opt \
+      && wget "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -O docker/docker-compose \
+      && chmod +x ./docker/docker-compose \
+      && ln -s /opt/docker/docker-compose /usr/local/bin
+
+# Install trans
+RUN cd /opt \
+      && wget git.io/trans \
+      && chmod +x ./trans \
+      && ln -s /opt/trans /usr/local/bin
 
 # Install jq
 RUN cd /opt \
@@ -68,6 +86,7 @@ WORKDIR /home/$user
 # Add configuration files
 ADD ./config/.tmux.conf ./.tmux.conf
 ADD ./config/.zshrc ./.zshrc
+ADD ./config/.dircolors ./.dircolors
 # Change current user
 RUN chown -R ${user}:${user} /home/$user
 USER $user

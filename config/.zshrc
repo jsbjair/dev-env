@@ -1,4 +1,5 @@
 export DISABLE_AUTO_TITLE="true"
+export TERM=xterm-256color
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -52,7 +53,7 @@ ZSH_THEME="ys"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git docker docker-compose)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -61,7 +62,8 @@ source $ZSH/oh-my-zsh.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=$LANG
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -84,12 +86,17 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+#export WINDOWS_HOST_DIR=/C/Users/$user/Documents/chrome_user_data/$company
 
 export USER_LOCAL_BIN=/home/jair/.local/bin
-export DOCKER_HOME=/opt/docker
+export PATH=$PATH:$USER_LOCAL_BIN
 export JAVA_HOME=/opt/java/jdk
-export PATH=$PATH:$USER_LOCAL_BIN:$JAVA_HOME/bin;$DOCKER_HOME
+export MAVEN_HOME=/opt/maven
+export DOCKER_HOME=/opt/docker
+export PATH=$PATH:$JAVA_HOME/bin
+export PATH=$PATH:$MAVEN_HOME/bin
+export PATH=$PATH:$DOCKER_HOME
+export PATH=$PATH:/opt/bin
 
-eval `dircolors /opt/dev-env-config/.dircolors`
-
-
+source `readlink -f ~`/.zsh/peco-select-history.zsh
+eval `dircolors ~/.dircolors`
