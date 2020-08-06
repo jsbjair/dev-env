@@ -1,0 +1,28 @@
+!#include "/opt/windows/Xresources.dark"
+#include "/opt/windows/gruvbox-dark.xresources"
+
+! Mouse pointer
+XTerm*pointerColor: white
+XTerm*pointerColorBackground: black
+XTerm*cursorColor: yellow
+XTerm*cursorBlink: true
+! title
+Xterm*allowTitleOps: false
+
+! Font
+#define font1 Inconsolata
+#define font2 Ubuntu Mono derivative Powerline
+#define font3 Ubuntu Mono
+
+xterm*faceName: font2
+xterm*faceSize: 12
+xterm*renderFont: true
+
+xterm*VT100.Translations: #override \
+    Ctrl <Key> minus: smaller-vt-font() \n\
+    Ctrl <Key> plus: larger-vt-font() \n\
+    Ctrl <Key> 0: set-vt-font(d) \n\
+    Shift <KeyPress> Insert: insert-selection(CLIPBOARD) \n\
+    Ctrl Shift <Key>V:    insert-selection(CLIPBOARD) \n\
+    Ctrl Shift <Key>C:    copy-selection(CLIPBOARD)
+
