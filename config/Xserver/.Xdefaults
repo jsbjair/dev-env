@@ -1,5 +1,5 @@
-!#include "/opt/windows/Xresources.dark"
-#include "/opt/windows/gruvbox-dark.xresources"
+!#include "/opt/Xserver/Xresources.dark"
+#include "/opt/Xserver/gruvbox-dark.xresources"
 
 ! Mouse pointer
 XTerm*pointerColor: white

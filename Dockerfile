@@ -1,5 +1,5 @@
 # Specify Ubuntu Saucy as base image
-FROM ubuntu:bionic
+FROM ubuntu:jammy
 LABEL maintainer="jsbjair"
 
 # Arguments
@@ -26,28 +26,28 @@ RUN add-apt-repository -y ppa:jonathonf/vim \
 # Install Basic Packages
 RUN apt-get install -y wget curl git man unzip \
     tmux zsh vim-gtk3 lynx htop openssh-server mosh sudo \
-    cscope
+    cscope xterm dnsutils x11-xserver-utils fonts-inconsolata
 
 # Install packages needed to compile binaries
 RUN apt-get install -y build-essential autotools-dev automake pkg-config
 
 # Install peco
 RUN cd /opt \
-      && wget https://github.com/peco/peco/releases/download/v0.5.7/peco_linux_amd64.tar.gz \
+      && wget https://github.com/peco/peco/releases/download/v0.5.11/peco_linux_amd64.tar.gz \
       && tar -xvf peco_linux_amd64.tar.gz \
       && ln -s /opt/peco_linux_amd64/peco /usr/local/bin
 
 # Install docker
 RUN cd /opt \
-      && wget https://download.docker.com/linux/static/stable/x86_64/docker-19.03.8.tgz \
-      && tar -xvf docker-19.03.8.tgz \
+      && wget https://download.docker.com/linux/static/stable/x86_64/docker-24.0.6.tgz \
+      && tar -xvf docker-24.0.6.tgz \
       && ln -s /opt/docker/docker /usr/local/bin
 
-# Install docker-compose
+# Install kubectl
 RUN cd /opt \
-      && wget "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -O docker/docker-compose \
-      && chmod +x ./docker/docker-compose \
-      && ln -s /opt/docker/docker-compose /usr/local/bin
+      && curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
+      && chmod +x ./kubectl \
+      && ln -s /opt/kubectl /usr/local/bin
 
 # Install trans
 RUN cd /opt \
@@ -58,7 +58,7 @@ RUN cd /opt \
 # Install jq
 RUN cd /opt \
       && mkdir jq \
-      && wget -O ./jq/jq http://stedolan.github.io/jq/download/linux64/jq \
+      && wget -O ./jq/jq https://github.com/jqlang/jq/releases/download/jq-1.7/jq-linux-amd64 \
       && chmod +x ./jq/jq \
       && ln -s /opt/jq/jq /usr/local/bin
 
@@ -68,11 +68,6 @@ RUN cd /opt \
     && cd ctags \
     && ./autogen.sh \
     && ./configure && make && make install
-
-# Install dircolor solarized
-RUN mkdir /opt/dev-env-config \
-    && cd /opt/dev-env-config \
-    && wget -O .dircolors https://raw.github.com/seebi/dircolors-solarized/master/dircolors.256dark
 
 RUN groupadd -g $GID -o $user
 # Add user with name "${user}"
@@ -87,18 +82,27 @@ WORKDIR /home/$user
 ADD ./config/.tmux.conf ./.tmux.conf
 ADD ./config/.zshrc ./.zshrc
 ADD ./config/.dircolors ./.dircolors
+
+# Install dircolor solarized
+ADD ./config/Xserver /opt/Xserver
+RUN cp /opt/Xserver/.Xdefaults ./.Xdefaults
+
 # Change current user
 RUN chown -R ${user}:${user} /home/$user
 USER $user
 
 # Clone oh-my-zsh
-RUN git clone https://github.com/robbyrussell/oh-my-zsh.git ./.oh-my-zsh
+RUN git clone https://github.com/ohmyzsh/ohmyzsh.git ./.oh-my-zsh
 
 #Configure vim
 RUN git clone https://github.com/jsbjair/customvim.git ./.vim \
     && ln -s ./.vim/.vimrc ./.vimrc \
     && cd ./.vim \
     && git submodule update --init --recursive
+
+# Install pip
+RUN curl -L https://bootstrap.pypa.io/get-pip.py | python3 \
+    && python3 -m pip install -r ./.vim/requirements.txt
 
 # Put peco script
 RUN mkdir -p ./.zsh \
